@@ -35,9 +35,9 @@ use revivalpmmp\pureentities\traits\Breedable;
 use revivalpmmp\pureentities\traits\Feedable;
 use revivalpmmp\pureentities\utils\MobDamageCalculator;
 //use pocketmine\event\Timings;
-class Zombie extends WalkingMonster implements IntfCanEquip, IntfCanBreed, Monster{
+class BoB extends WalkingMonster implements IntfCanEquip, IntfCanBreed, Monster{
 	use Breedable, Feedable;
-	const NETWORK_ID = Data::NETWORK_IDS["zombie"];
+	const NETWORK_ID = Data::NETWORK_IDS["bob"];
 	/**
 	 * @var MobEquipment
 	 */
@@ -47,10 +47,10 @@ class Zombie extends WalkingMonster implements IntfCanEquip, IntfCanBreed, Monst
 	 *
 	 * @var array
 	 */
-	private $pickUpLoot = [ItemIds::IRON_SWORD, ItemIds::IRON_SHOVEL];
+	private $pickUpLoot = [ItemIds::DIAMOND_SWORD, ItemIds::DIAMOND_SHOVEL];
 	public function initEntity() : void{
 		parent::initEntity();
-		$this->speed = 1.1;
+		$this->speed = ;
 		$this->setDamage([0, 2, 3, 4]);
 		$this->mobEquipment = new MobEquipment($this);
 		$this->mobEquipment->init();
@@ -86,8 +86,7 @@ class Zombie extends WalkingMonster implements IntfCanEquip, IntfCanBreed, Monst
 	 * Zombie gets attacked. We need to recalculate the damage done with reducing the damage by armor type.
 	 *
 	 * @param EntityDamageEvent $source
-	 */
-	public function attack(EntityDamageEvent $source) : void{
+	 */	public function attack(EntityDamageEvent $source) : void{
 		$damage = $this->getDamage();
 		PureEntities::logOutput("$this: attacked with original damage of $damage", PureEntities::DEBUG);
 		$reduceDamagePercent = 0;
@@ -145,7 +144,7 @@ class Zombie extends WalkingMonster implements IntfCanEquip, IntfCanBreed, Monst
 			if(mt_rand(1, 1000) % 25 == 0){
 				switch(mt_rand(1, 3)){
 					case 1:
-						array_push($drops, Item::get(Item::CARROT, 0, 1));
+						array_push($drops, Block::get(Block::MOB_SPAWNER, 0, 1));
 						break;
 					case 2:
 						array_push($drops, Item::get(Item::POTATO, 0, 1));
